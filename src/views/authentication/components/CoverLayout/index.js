@@ -30,17 +30,13 @@ import PageLayout from "examples/LayoutContainers/PageLayout";
 // Authentication layout components
 import Footer from "views/authentication/components/Footer";
 
-function CoverLayout({ coverHeight, image, children }) {
+function CoverLayout({ coverHeight, image, children,landingFormFlag }) {
   return (
     <PageLayout>
       <DefaultNavbar
-        action={{
-          type: "external",
-          route: "https://creative-tim.com/product/material-dashboard-react",
-          label: "free download",
-        }}
         transparent
         light
+        landingFormFlag={landingFormFlag}
       />
       <MDBox
         width="calc(100% - 2rem)"

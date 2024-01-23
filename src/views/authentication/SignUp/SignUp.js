@@ -31,10 +31,32 @@ import CoverLayout from "views/authentication/components/CoverLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
+import { useState } from "react";
+import { Tooltip } from "@mui/material";
+// import { makeStyles } from '@mui/styles';
 
-function SignUp() {
+function SignUp(props) {
+  const {
+    handleSignup,
+  } = props;
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+
+
+  const handleSubmit = async () => {
+    try {
+      if(!(!name || !email || !password || email.length === 0 || password.length === 0 || name.length === 0)) {
+        await handleSignup(email, password, name);
+      }
+    }
+    catch (err) {
+      alert('Something went wrong!!!')
+    }
+  }
   return (
-    <CoverLayout image={bgImage}>
+    <CoverLayout landingFormFlag={false} image={bgImage}>
       <Card>
         <MDBox
           variant="gradient"
@@ -57,13 +79,13 @@ function SignUp() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="text" label="Name" variant="standard" fullWidth />
+              <MDInput onChange={(e) => setName(e.target.value)} type="text" label="Name" variant="standard" fullWidth />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" variant="standard" fullWidth />
+              <MDInput onChange={(e) => setEmail(e.target.value)} type="email" label="Email" variant="standard" fullWidth />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" variant="standard" fullWidth />
+              <MDInput onChange={(e) => setPassword(e.target.value)} type="password" label="Password" variant="standard" fullWidth />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Checkbox />
@@ -86,11 +108,13 @@ function SignUp() {
                 Terms and Conditions
               </MDTypography>
             </MDBox>
-            <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
-                sign in
-              </MDButton>
-            </MDBox>
+            <Tooltip title={(!name || !email || !password || email.length === 0 || password.length === 0 || name.length === 0) ? 'All field are required!!' : 'Click to register!!'}>
+              <MDBox mt={4} mb={1}>
+                <MDButton onClick={() => handleSubmit()} disabled={!name || !email || !password || email.length === 0 || password.length === 0 || name.length === 0} variant="gradient" color="info" fullWidth>
+                  sign up
+                </MDButton>
+              </MDBox>
+            </Tooltip>
             <MDBox mt={3} mb={1} textAlign="center">
               <MDTypography variant="button" color="text">
                 Already have an account?{" "}

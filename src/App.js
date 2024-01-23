@@ -17,7 +17,9 @@ import { useState, useEffect, useMemo } from "react";
 
 // react-router components
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
-
+import {
+  getAccessToken,
+} from './Redux/action';
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -52,8 +54,26 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 // Images
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
+import { ToastContainer } from "react-toastify";
+import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
+import { connect } from "react-redux";
 
-export default function App() {
+const App = (props) => {
+  const {
+    getAccessToken,
+    isUserLoggedIn,
+  } = props;
+
+  const [openDialog, setOpenDialog] = useState(false);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if(isUserLoggedIn)
+        setOpenDialog(true);
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [isUserLoggedIn]);
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -121,6 +141,15 @@ export default function App() {
 
       return null;
     });
+  const handleDialogClose = async () => {
+    await getAccessToken();
+    try {
+      setOpenDialog(false)
+    }
+    catch (err) {
+      alert('Something Went Wrong!!!')
+    }
+  }
 
   const configsButton = (
     <MDBox
@@ -146,9 +175,35 @@ export default function App() {
     </MDBox>
   );
 
-  return direction === "rtl" ? (
-    <CacheProvider value={rtlCache}>
-      <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
+  return (<div>
+    {direction === "rtl" ? (
+      <CacheProvider value={rtlCache}>
+        <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
+          <CssBaseline />
+          {layout === "dashboard" && (
+            <>
+              <Sidenav
+                color={sidenavColor}
+                brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+                brandName="Material Dashboard 2"
+                routes={routes}
+                onMouseEnter={handleOnMouseEnter}
+                onMouseLeave={handleOnMouseLeave}
+              />
+              <Configurator />
+              {configsButton}
+            </>
+          )}
+          {layout === "vr" && <Configurator />}
+          <Routes>
+            {getRoutes(routes)}
+            <Route path="*" element={<Navigate to="/dashboard" />} />
+          </Routes>
+        </ThemeProvider>
+        <ToastContainer />
+      </CacheProvider>
+    ) : (
+      <ThemeProvider theme={darkMode ? themeDark : theme}>
         <CssBaseline />
         {layout === "dashboard" && (
           <>
@@ -170,29 +225,28 @@ export default function App() {
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </ThemeProvider>
-    </CacheProvider>
-  ) : (
-    <ThemeProvider theme={darkMode ? themeDark : theme}>
-      <CssBaseline />
-      {layout === "dashboard" && (
-        <>
-          <Sidenav
-            color={sidenavColor}
-            brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-            brandName="Material Dashboard 2"
-            routes={routes}
-            onMouseEnter={handleOnMouseEnter}
-            onMouseLeave={handleOnMouseLeave}
-          />
-          <Configurator />
-          {configsButton}
-        </>
-      )}
-      {layout === "vr" && <Configurator />}
-      <Routes>
-        {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
-      </Routes>
-    </ThemeProvider>
-  );
-}
+    )}
+    <Dialog open={openDialog} >
+      <DialogTitle>
+        Click below Button to get Refresh Token!!!
+      </DialogTitle>
+      <DialogActions>
+        <Button varient='contained' onClick={() => handleDialogClose()}>
+          GET REFRESH TOKEN
+        </Button>
+      </DialogActions>
+    </Dialog>
+    <ToastContainer />
+  </div>);
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getAccessToken: ()  => dispatch(getAccessToken()),
+});
+
+const mapStateToProps = (state) => ({
+  isUserLoggedIn: state.isUserLoggedIn,
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

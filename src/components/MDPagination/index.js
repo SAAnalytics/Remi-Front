@@ -26,7 +26,8 @@ import MDPaginationItemRoot from "components/MDPagination/MDPaginationItemRoot";
 
 // The Pagination main context
 const Context = createContext();
-
+// import { useNavigate } from 'react-router-dom';
+// const navigate = useNavigate();
 const MDPagination = forwardRef(
   ({ item, variant, color, size, active, children, ...rest }, ref) => {
     const context = useContext(Context);
