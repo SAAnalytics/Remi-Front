@@ -36,6 +36,9 @@ Coded by www.creative-tim.com
 */
 
 // Material Dashboard 2 React views
+import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
+import LogoutIcon from '@mui/icons-material/Logout';
+import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import Dashboard from "views/dashboard";
 import HotelData from "views/HotelData";
 import Billing from "views/billing";
@@ -44,12 +47,13 @@ import Notifications from "views/notifications";
 import Profile from "views/profile";
 import SignIn from "views/authentication/SignIn";
 import SignUp from "views/authentication/SignUp";
-import Buisness from "views/Buisness";
+import HotelDetails from "views/HotelDetails";
 // @mui icons
 import Icon from "@mui/material/Icon";
 import Plans from "views/Plans";
 import QrCodeSection from "views/QrCodeSection";
 import { Money, QrCode } from "@mui/icons-material";
+import SurveyCard from "views/SurveyCard";
 
 const routes = [
   {
@@ -70,33 +74,41 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "HotelData",
-    key: "HotelData",
-    icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/HotelData",
+    name: "Notifications",
+    key: "notifications",
+    icon: <Icon fontSize="small">notifications</Icon>,
+    route: "/notifications",
+    component: <Notifications />,
+  },
+  {
+    type: "collapse",
+    name: "Review's",
+    key: "reviews",
+    icon: <SentimentVerySatisfiedIcon />,
+    route: "/allReviews",
     component: <HotelData />,
   },
   {
     type: "collapse",
-    name: "Buisness",
-    key: "buisness",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/buisness",
-    component: <Buisness />,
+    name: "Hotel Details",
+    key: "Hotel Detail",
+    icon: <CorporateFareIcon />,
+    route: "/hotelDetails",
+    component: <HotelDetails />,
   },
   {
     type: "collapse",
     name: "View Plans",
     key: "plans",
-    icon: <Money/>,
+    icon: <Money />,
     route: "/plans",
     component: <Plans />,
   },
   {
     type: "collapse",
-    name: "View Qrs",
+    name: "View Your Qr",
     key: "qrCode",
-    icon: <QrCode/>,
+    icon: <QrCode />,
     route: "/customizeQr",
     component: <QrCodeSection />,
   },
@@ -110,11 +122,19 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Notifications",
-    key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/notifications",
-    component: <Notifications />,
+    name: "Logout",
+    key: "logout",
+    icon: <LogoutIcon />,
+    route: "/authentication/sign-in",
+    component: <SignIn />,
+  },
+  {
+    type: "collapse",
+    name: "View SurveyCard",
+    key: "surveyCard",
+    icon: <Money />,
+    route: "/surveyCard",
+    component: <SurveyCard />,
   },
   {
     type: "collapse",

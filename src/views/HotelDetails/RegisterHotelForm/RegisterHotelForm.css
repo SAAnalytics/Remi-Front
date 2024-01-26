@@ -115,3 +115,18 @@
   width: 50vw;
   /* border-radius: 0; */
 }
+.formContainerHotel {
+  width: 100%;
+  /* border: 2px solid red !important; */
+}
+
+.formTextField {
+  width: 100% !important;
+}
+@media only screen and (max-width:830px) {
+  .addBuisnessDialog>div>div {
+    width: 90vw !important;
+    /* border-radius: 0; */
+  }
+
+}
