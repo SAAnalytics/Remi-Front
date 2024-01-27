@@ -1,10 +1,10 @@
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './HotelDetails.css';
 import RegisterHotelForm from './RegisterHotelForm';
 // import BuisnessCards from './BuisnessCards';
 import DashboardNavbar from 'examples/Navbars/DashboardNavbar';
-import { Box, Card, Divider, Grid, IconButton, Typography } from '@mui/material';
+import { Box, Button, Card, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, IconButton, Typography } from '@mui/material';
 // import { styled } from '@mui/material/styles';
 // import Table from '@mui/material/Table';
 // import TableBody from '@mui/material/TableBody';
@@ -59,13 +59,51 @@ import addIcon from '../../Images/addHotelDetails.svg'
 
 const HotelDetails = (props) => {
 
+
+  const { hotelDetailsRedux, getHotelData, deleteHotelData } = props;
+
   const [openAddBuisness, setOpenAddBuisness] = useState(false);
   const [openEditBuisness, setOpenEditBuisness] = useState(false);
   const [openViewBuisness, setOpenViewBuisness] = useState(false);
   const theme = useTheme();
   const isXsScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const [change, setChange] = useState(true);
+  const [change, setChange] = useState(Object.keys(hotelDetailsRedux).length === 0);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+
+  useEffect(() => {
+    const getHotelDataFromRedux = async () => {
+      try {
+        await getHotelData();
+      }
+      catch (er) {
+        alert('Something Went wrong !!!')
+      }
+    }
+    getHotelDataFromRedux();
+  }, []);
+
+  useEffect(() => {
+    // console.log(hotelDetailsRedux)
+    setChange(Object.values(hotelDetailsRedux).length === 0)
+  }, [hotelDetailsRedux])
+
+  const handleDeleteHotel = () => {
+    setOpenDeleteModal(true);
+  };
+  const handleDeleteHotelFromRedux = async () => {
+    try {
+      await deleteHotelData();
+      setOpenDeleteModal(false);
+    }
+    catch (er) {
+      alert('Something went wrong !!!');
+    }
+  };
+
+  const { location, name, description, room, slogan, customAIDescription } = hotelDetailsRedux;
+
   return (<>
     <DashboardLayout>
       <DashboardNavbar />
@@ -87,24 +125,35 @@ const HotelDetails = (props) => {
             borderRadius="lg"
             coloredShadow="info"
             className='hotelListLabelHeader'
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}
           >
             <MDTypography variant="h6" color="white">
               Your Hotel Details
             </MDTypography>
+            <IconButton onClick={() => handleDeleteHotel()}>
+              <DeleteIcon sx={{ color: 'red' }} />
+            </IconButton>
           </MDBox>
 
           {change ? <div className="enterHotelDetailsMainContainer">
-            <div className="plusIconContainer" onClick={() => {setChange(false);setOpenAddBuisness(true)}}>
+            <div className="plusIconContainer" onClick={() => { setOpenAddBuisness(true) }}>
               <img src={addIcon} alt="" />
+            </div>
+            <div className="enterDetails">
+              Enter Details of your Hotels
             </div>
           </div> :
             <div className="hoteldetailsMasterContainer">
-              <div className="hotelNameContainer" onClick={() => setChange(true)}>
+              <div className="hotelNameContainer">
                 <div className="logoHotelContainer">
                   <img src={dummyLogo} alt="" />
                 </div>
                 <div className="hotelNameText">
-                  Paras Palace
+                  {name}
                 </div>
               </div>
               <div>
@@ -116,7 +165,7 @@ const HotelDetails = (props) => {
                     Location:
                   </div>
                   <div className="locationText">
-                    Vrindavan Cottages, Mathura, India
+                    {location}
                   </div>
                 </div>
                 <div className='dividerContainer'>
@@ -127,7 +176,7 @@ const HotelDetails = (props) => {
                     No. of Rooms:
                   </div>
                   <div className="locationText">
-                    86 Rooms
+                    {room}
                   </div>
                 </div>
                 <div className='dividerContainer'>
@@ -138,7 +187,7 @@ const HotelDetails = (props) => {
                     Description:
                   </div>
                   <div className="descriptionText">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At veniam eaque nostrum repellendus eligendi temporibus accusamus? Dolor fuga eius dicta odit aliquid rerum?
+                    {description}
                   </div>
                 </div>
                 <div className='dividerContainer'>
@@ -149,7 +198,7 @@ const HotelDetails = (props) => {
                     Slogan:
                   </div>
                   <div className="locationText">
-                    Lorem ipsum dolor sit amet consectetur.
+                    {slogan}
                   </div>
                 </div>
                 <div className='dividerContainer'>
@@ -161,22 +210,31 @@ const HotelDetails = (props) => {
                     AI Description:
                   </div>
                   <div className="descriptionText">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita officiis consectetur qui hic delectus aperiam fugit voluptate non in. Natus neque nostrum magnam..
+                    {customAIDescription}
                   </div>
                 </div>
-                <div className="descriptionContainer">
-                  <div className="descriptionLabel">
-                    Your Logo:
-                  </div>
-                  <div className="descriptionText">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita officiis consectetur qui hic delectus aperiam fugit voluptate non in. Natus neque nostrum magnam..
-                  </div>
-                </div>
+                
               </div>
             </div>}
         </Card>
       </Grid>
 
+      <Dialog open={openDeleteModal} onClose={() => setOpenDeleteModal(fasle)}>
+        <DialogTitle sx={{ color: 'red' }}>
+          Warning!!!
+        </DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete hotel details?
+        </DialogContent>
+        <DialogActions>
+          <Button variant='contained' sx={{ color: 'white !important', backgroundColor: 'red' }} onClick={() => handleDeleteHotelFromRedux()}>
+            DELETE
+          </Button>
+          <Button onClick={() => setOpenDeleteModal(false)}>
+            CLOSE
+          </Button>
+        </DialogActions>
+      </Dialog>
       <RegisterHotelForm open={openAddBuisness} setOpenAddBuisness={setOpenAddBuisness} />
 
       <EditBuisnessDialog open={openEditBuisness} setOpenEditBuisness={setOpenEditBuisness} />

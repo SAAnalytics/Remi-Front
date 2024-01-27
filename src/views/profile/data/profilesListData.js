@@ -20,6 +20,7 @@ import ivana from "assets/images/ivana-square.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
 
+
 export default [
   {
     image: kal,
@@ -31,6 +32,7 @@ export default [
       color: "info",
       label: "reply",
     },
+    platform: 'google'
   },
   {
     image: marie,
@@ -42,6 +44,7 @@ export default [
       color: "info",
       label: "reply",
     },
+    platform: 'glassdoor'
   },
   {
     image: ivana,
@@ -53,6 +56,7 @@ export default [
       color: "info",
       label: "reply",
     },
+    platform: 'instagram'
   },
   {
     image: team4,
@@ -64,6 +68,7 @@ export default [
       color: "info",
       label: "reply",
     },
+    platform: 'glassdoor'
   },
   {
     image: team3,
@@ -75,5 +80,6 @@ export default [
       color: "info",
       label: "reply",
     },
+    platform: 'google'
   },
 ];

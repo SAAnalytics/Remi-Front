@@ -12,6 +12,21 @@ import {
   GET_REFRESH_TOKEN_PENDING,
   GET_REFRESH_TOKEN_FULFILLED,
   GET_REFRESH_TOKEN_REJECTED,
+  CREATE_HOTEL_PENDING,
+  CREATE_HOTEL_FULFILLED,
+  CREATE_HOTEL_REJECTED,
+  VALIDATE_TOKEN_PENDING,
+  VALIDATE_TOKEN_FULFILLED,
+  VALIDATE_TOKEN_REJECTED,
+  GET_HOTEL_DATA_PENDING,
+  GET_HOTEL_DATA_FULFILLED,
+  GET_HOTEL_DATA_REJECTED,
+  DELETE_HOTEL_DATA_PENDING,
+  DELETE_HOTEL_DATA_FULFILLED,
+  DELETE_HOTEL_DATA_REJECTED,
+  GET_REVIEWS_DATA_PENDING,
+  GET_REVIEWS_DATA_FULFILLED,
+  GET_REVIEWS_DATA_REJECTED,
 } from './actionTypes';
 
 const initialState = {
@@ -20,6 +35,9 @@ const initialState = {
   ussToken: '',
   refreshToken: '',
   isUserLoggedIn: false,
+  allPlansData: [],
+  hotelDetailsRedux: {},
+  allReviewsData: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -61,7 +79,6 @@ const reducer = (state = initialState, action) => {
         ...state,
       }
     }
-
     case LOGIN_FULFILLED: {
 
       const { user, resultMessage, accessToken, refreshToken } = action.payload;
@@ -101,6 +118,96 @@ const reducer = (state = initialState, action) => {
       }
     };
     case SIGNUP_REJECTED: {
+      return {
+        ...state,
+      }
+    }
+
+    case VALIDATE_TOKEN_PENDING: {
+      return {
+        ...state,
+      }
+    }
+    case VALIDATE_TOKEN_FULFILLED: {
+      return {
+        ...state,
+        isUserLoggedIn: true,
+      }
+    }
+    case VALIDATE_TOKEN_REJECTED: {
+      toast.error('Not authenticated!!!');
+      return {
+        ...state,
+        isUserLoggedIn: false,
+      }
+    }
+
+    case CREATE_HOTEL_PENDING: {
+      return {
+        ...state,
+      }
+    }
+    case CREATE_HOTEL_FULFILLED: {
+      // console.log(action.payload);
+      const hotelData = action.payload;
+      return {
+        ...state,
+        hotelDetailsRedux: hotelData,
+      }
+    }
+    case CREATE_HOTEL_REJECTED: {
+      return {
+        ...state,
+      }
+    }
+    case GET_HOTEL_DATA_PENDING: {
+      return {
+        ...state,
+      }
+    }
+    case GET_HOTEL_DATA_FULFILLED: {
+      // console.log(action.payload);
+      const hotelData = action.payload;
+      return {
+        ...state,
+        hotelDetailsRedux: hotelData,
+      }
+    }
+    case GET_HOTEL_DATA_REJECTED: {
+      return {
+        ...state,
+      }
+    };
+
+    case DELETE_HOTEL_DATA_PENDING: {
+      return {
+        ...state,
+      }
+    }
+    case DELETE_HOTEL_DATA_FULFILLED: {
+      return {
+        ...state,
+        hotelDetailsRedux: {},
+      }
+    }
+    case DELETE_HOTEL_DATA_REJECTED: {
+      return {
+        ...state,
+      }
+    }
+    case GET_REVIEWS_DATA_PENDING: {
+      return {
+        ...state,
+      }
+    }
+    case GET_REVIEWS_DATA_FULFILLED: {
+      const { reviews } = action.payload;
+      return {
+        ...state,
+        allReviewsData: reviews,
+      }
+    }
+    case GET_REVIEWS_DATA_REJECTED: {
       return {
         ...state,
       }

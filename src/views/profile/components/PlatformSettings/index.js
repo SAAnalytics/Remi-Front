@@ -48,7 +48,7 @@ function PlatformSettings() {
           </MDBox>
           <MDBox width="80%" ml={0.5}>
             <MDTypography variant="button" fontWeight="regular" color="text">
-              Email me when someone follows me
+              Instagram
             </MDTypography>
           </MDBox>
         </MDBox>
@@ -58,7 +58,7 @@ function PlatformSettings() {
           </MDBox>
           <MDBox width="80%" ml={0.5}>
             <MDTypography variant="button" fontWeight="regular" color="text">
-              Email me when someone answers on my post
+              Twitter
             </MDTypography>
           </MDBox>
         </MDBox>
@@ -68,7 +68,7 @@ function PlatformSettings() {
           </MDBox>
           <MDBox width="80%" ml={0.5}>
             <MDTypography variant="button" fontWeight="regular" color="text">
-              Email me when someone mentions me
+              Google Maps
             </MDTypography>
           </MDBox>
         </MDBox>

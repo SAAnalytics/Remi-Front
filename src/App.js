@@ -65,12 +65,20 @@ const App = (props) => {
   } = props;
 
   const [openDialog, setOpenDialog] = useState(false);
-
+  const handleRefrashToken = async () => {
+    try {
+      await getAccessToken();
+      // setOpenDialog(false)
+    }
+    catch (err) {
+      alert('Something Went Wrong!!!')
+    }
+  }
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if(isUserLoggedIn)
-        setOpenDialog(true);
-    }, 5000);
+      if (isUserLoggedIn)
+        handleRefrashToken();
+    }, 300000);
 
     return () => clearInterval(intervalId);
   }, [isUserLoggedIn]);
@@ -141,15 +149,7 @@ const App = (props) => {
 
       return null;
     });
-  const handleDialogClose = async () => {
-    await getAccessToken();
-    try {
-      setOpenDialog(false)
-    }
-    catch (err) {
-      alert('Something Went Wrong!!!')
-    }
-  }
+
 
   const configsButton = (
     <MDBox
@@ -226,22 +226,13 @@ const App = (props) => {
         </Routes>
       </ThemeProvider>
     )}
-    <Dialog open={openDialog} >
-      <DialogTitle>
-        Click below Button to get Refresh Token!!!
-      </DialogTitle>
-      <DialogActions>
-        <Button varient='contained' onClick={() => handleDialogClose()}>
-          GET REFRESH TOKEN
-        </Button>
-      </DialogActions>
-    </Dialog>
+
     <ToastContainer />
   </div>);
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getAccessToken: ()  => dispatch(getAccessToken()),
+  getAccessToken: () => dispatch(getAccessToken()),
 });
 
 const mapStateToProps = (state) => ({

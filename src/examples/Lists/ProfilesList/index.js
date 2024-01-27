@@ -27,10 +27,14 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
 import MDButton from "components/MDButton";
-
+import glassDoor from '../../../Images/glassdoor.png';
+import instagram from '../../../Images/instagram.png';
+import maps from '../../../Images/maps.png';
+import { IconButton } from "@mui/material";
 function ProfilesList({ title, profiles, shadow }) {
-  const renderProfiles = profiles.map(({ image, name, description, action }) => (
-    <MDBox key={name} component="li" display="flex" alignItems="center" py={1} mb={1}>
+  const renderProfiles = profiles.map(({ image, name, description, action, platform }) => {
+    const platformIcon = platform === 'google' ? maps : platform === 'instagram' ? instagram : glassDoor;
+    return <MDBox key={name} component="li" display="flex" alignItems="center" py={1} mb={1}>
       <MDBox mr={2}>
         <MDAvatar src={image} alt="something here" shadow="md" />
       </MDBox>
@@ -44,8 +48,10 @@ function ProfilesList({ title, profiles, shadow }) {
       </MDBox>
       <MDBox ml="auto">
         {action.type === "internal" ? (
-          <MDButton component={Link} to={action.route} variant="text" color="info">
-            {action.label}
+          // <IconButton>
+          // </IconButton>
+          <MDButton component={Link} to={'/allReviews'} variant="text" color="info">
+            <img height={30} src={platformIcon} alt="Icon" />
           </MDButton>
         ) : (
           <MDButton
@@ -61,7 +67,8 @@ function ProfilesList({ title, profiles, shadow }) {
         )}
       </MDBox>
     </MDBox>
-  ));
+  }
+  );
 
   return (
     <Card sx={{ height: "100%", boxShadow: !shadow && "none" }}>

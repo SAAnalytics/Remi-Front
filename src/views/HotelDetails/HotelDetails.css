@@ -78,11 +78,15 @@
 
 .enterHotelDetailsMainContainer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
 }
 
+.enterDetails {
+  color: rgba(128, 128, 128, 0.741);
+}
 
 .plusIconContainer > img {
   height: 50vh;

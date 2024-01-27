@@ -54,7 +54,7 @@ import Plans from "views/Plans";
 import QrCodeSection from "views/QrCodeSection";
 import { Money, QrCode } from "@mui/icons-material";
 import SurveyCard from "views/SurveyCard";
-
+import ProtectedRoute from 'components/ProtectedRoute';
 const routes = [
   {
     type: "collapse",
@@ -62,7 +62,7 @@ const routes = [
     key: "dashboard",
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
-    component: <Dashboard />,
+    component: <ProtectedRoute Component={Dashboard} componentPath='/dashboard'/> ,
   },
   {
     type: "collapse",
@@ -70,7 +70,7 @@ const routes = [
     key: "profile",
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
-    component: <Profile />,
+    component: <ProtectedRoute Component={Profile} componentPath='/profile' />,
   },
   {
     type: "collapse",
@@ -78,7 +78,7 @@ const routes = [
     key: "notifications",
     icon: <Icon fontSize="small">notifications</Icon>,
     route: "/notifications",
-    component: <Notifications />,
+    component: <ProtectedRoute Component={Notifications} componentPath='/notifications' />,
   },
   {
     type: "collapse",
@@ -86,7 +86,7 @@ const routes = [
     key: "reviews",
     icon: <SentimentVerySatisfiedIcon />,
     route: "/allReviews",
-    component: <HotelData />,
+    component: <ProtectedRoute Component={HotelData} componentPath="/allReviews" />,
   },
   {
     type: "collapse",
@@ -94,7 +94,7 @@ const routes = [
     key: "Hotel Detail",
     icon: <CorporateFareIcon />,
     route: "/hotelDetails",
-    component: <HotelDetails />,
+    component: <ProtectedRoute Component={HotelDetails} componentPath='/hotelDetails' />,
   },
   {
     type: "collapse",
@@ -102,7 +102,7 @@ const routes = [
     key: "plans",
     icon: <Money />,
     route: "/plans",
-    component: <Plans />,
+    component: <ProtectedRoute Component={Plans} componentPath="/plans" />,
   },
   {
     type: "collapse",
@@ -110,7 +110,7 @@ const routes = [
     key: "qrCode",
     icon: <QrCode />,
     route: "/customizeQr",
-    component: <QrCodeSection />,
+    component: <ProtectedRoute Component={QrCodeSection} componentPath="/customizeQr" />,
   },
   {
     type: "collapse",
@@ -118,15 +118,15 @@ const routes = [
     key: "billing",
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/billing",
-    component: <Billing />,
+    component: <ProtectedRoute Component={Billing} componentPath="/billing" />,
   },
   {
     type: "collapse",
     name: "Logout",
     key: "logout",
-    icon: <LogoutIcon />,
+    icon: <LogoutIcon onClick={() => {localStorage.clear()}} />,
     route: "/authentication/sign-in",
-    component: <SignIn />,
+    component: <SignIn/>,
   },
   {
     type: "collapse",

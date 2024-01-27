@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './RegisterHotelForm.css';
 import brandLogo from '../../../Images/surveySphere.png';
 import { Autocomplete, Box, Button, Dialog, DialogActions, DialogTitle, TextField } from '@mui/material';
@@ -8,16 +8,40 @@ const RegisterHotelForm = (props) => {
   const {
     setOpenAddBuisness,
     open,
+    handleHotelDetails,
   } = props;
   const locations = ['Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Ahmedabad'] // Add more locations
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [customAIDescription, setNameCustomAIDesc] = useState('');
+  const [location, setLocation] = useState('');
+  const [room, setRoom] = useState('');
+  const [slogan, setSlogan] = useState('');
 
+  const handleSubmit = async () => {
+    const dataObj = {
+      name,
+      location,
+      description,
+      customAIDescription,
+      room,
+      slogan,
+    }
+    console.log(dataObj)
+    try {
+      await handleHotelDetails(dataObj);
+    }
+    catch(err) {
+      alert('Something went wrong!!')
+    }
+  }
   return (<>
     <Dialog className='addBuisnessDialog' open={open} onClose={() => setOpenAddBuisness(false)}>
       <DialogTitle>
         Enter Hotel Details
       </DialogTitle>
       <Box
-        component="form"
+        // component="form"
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -47,28 +71,20 @@ const RegisterHotelForm = (props) => {
         noValidate
         autoComplete="off"
       >
-        <TextField className='formTextField' label="Hotel Name" variant="outlined" required />
+        <TextField className='formTextField' label="Hotel Name" onChange={(e) => setName(e.target.value)} variant="outlined" required />
         <Autocomplete
           freeSolo
           // sx={{ width: '90%',}}
           className='formTextField'
+          onChange={(event, value) => setLocation(value)}
           options={locations.map((option) => option)}
-          renderInput={(params) => <TextField {...params} label="Location" />}
+          renderInput={(params) => <TextField  {...params} label="Location" />}
         />
-        <TextField className='formTextField' label="Description" multiline rows={4} variant="outlined" required />
-        <TextField className='formTextField' label="AI Description" multiline rows={4} variant="outlined" required />
-        <TextField className='formTextField' label="Number of Rooms" type="number" variant="outlined" required />
-        <TextField className='formTextField' label="Slogan" variant="outlined" required />
-        <Button
-          variant="contained"
-          component="label"
-          startIcon={<ImageIcon sx={{ color: 'white !important' }} />}
-          sx={{ color: 'white !important' }}
-        >
-          Upload Logo
-          <input type="file" hidden />
-        </Button>
-        <Button variant="contained" sx={{ color: 'white !important' }} color="primary" type="submit">
+        <TextField className='formTextField' onChange={(e) => setDescription(e.target.value)} label="Description" multiline rows={4} variant="outlined" required />
+        <TextField className='formTextField' onChange={(e) => setNameCustomAIDesc(e.target.value)} label="AI Description" multiline rows={4} variant="outlined" required />
+        <TextField className='formTextField' onChange={(e) => setRoom(e.target.value)} label="Number of Rooms" type="number" variant="outlined" required />
+        <TextField className='formTextField' onChange={(e) => setSlogan(e.target.value)}label="Slogan" variant="outlined" required />
+        <Button  variant="contained" sx={{ color: 'white !important' }} onClick={() => handleSubmit()} color="primary" type="submit">
           Submit
         </Button>
       </Box>
