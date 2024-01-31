@@ -40,7 +40,7 @@ import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfi
 import LogoutIcon from '@mui/icons-material/Logout';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import Dashboard from "views/dashboard";
-import HotelData from "views/HotelData";
+import ReviewList from "views/ReviewList";
 import Billing from "views/billing";
 import RTL from "views/rtl";
 import Notifications from "views/notifications";
@@ -86,7 +86,7 @@ const routes = [
     key: "reviews",
     icon: <SentimentVerySatisfiedIcon />,
     route: "/allReviews",
-    component: <ProtectedRoute Component={HotelData} componentPath="/allReviews" />,
+    component: <ProtectedRoute Component={ReviewList} componentPath="/allReviews" />,
   },
   {
     type: "collapse",
@@ -128,22 +128,22 @@ const routes = [
     route: "/authentication/sign-in",
     component: <SignIn/>,
   },
-  {
-    type: "collapse",
-    name: "View SurveyCard",
-    key: "surveyCard",
-    icon: <Money />,
-    route: "/surveyCard",
-    component: <SurveyCard />,
-  },
-  {
-    type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
-    icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/sign-in",
-    component: <SignIn />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "View SurveyCard",
+  //   key: "surveyCard",
+  //   icon: <Money />,
+  //   route: "/surveyCard",
+  //   component: <SurveyCard />,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Sign In",
+  //   key: "sign-in",
+  //   icon: <Icon fontSize="small">login</Icon>,
+  //   route: "/authentication/sign-in",
+  //   component: <SignIn />,
+  // },
   {
     type: "collapse",
     name: "Sign Up",

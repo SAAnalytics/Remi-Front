@@ -134,9 +134,9 @@ const HotelDetails = (props) => {
             <MDTypography variant="h6" color="white">
               Your Hotel Details
             </MDTypography>
-            <IconButton onClick={() => handleDeleteHotel()}>
+            {!change && <IconButton onClick={() => handleDeleteHotel()}>
               <DeleteIcon sx={{ color: 'red' }} />
-            </IconButton>
+            </IconButton>}
           </MDBox>
 
           {change ? <div className="enterHotelDetailsMainContainer">

@@ -149,7 +149,7 @@ function Notifications() {
             </Card>
           </Grid>
 
-          <Grid item xs={12} lg={8}>
+          {/* <Grid item xs={12} lg={8}>
             <Card>
               <MDBox p={2} lineHeight={0}>
                 <MDTypography variant="h5">Notifications</MDTypography>
@@ -186,7 +186,7 @@ function Notifications() {
                 </Grid>
               </MDBox>
             </Card>
-          </Grid>
+          </Grid> */}
         </Grid>
       </MDBox>
       <Footer />

@@ -39,7 +39,7 @@ import MDPagination from "components/MDPagination";
 import DataTableHeadCell from "examples/Tables/DataTable/DataTableHeadCell";
 import DataTableBodyCell from "examples/Tables/DataTable/DataTableBodyCell";
 
-function DataTable({
+const DataTable = ({
   entriesPerPage,
   canSearch,
   showTotalEntries,
@@ -47,7 +47,8 @@ function DataTable({
   pagination,
   isSorted,
   noEndBorder,
-}) {
+  allReviewsData,
+}) => {
   const defaultValue = entriesPerPage.defaultValue ? entriesPerPage.defaultValue : 10;
   const entries = entriesPerPage.entries
     ? entriesPerPage.entries.map((el) => el.toString())
@@ -79,7 +80,7 @@ function DataTable({
     setGlobalFilter,
     state: { pageIndex, pageSize, globalFilter },
   } = tableInstance;
-console.log(headerGroups)
+// console.log(headerGroups)
   // Set the default value for the entries per page when component mounts
   useEffect(() => setPageSize(defaultValue || 10), [defaultValue]);
 

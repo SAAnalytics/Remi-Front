@@ -68,7 +68,7 @@ const reducer = (state = initialState, action) => {
     }
     case GET_REFRESH_TOKEN_REJECTED: {
       toast.error(action.payload, {
-        position: toast.POSITION.BOTTOM_LEFT
+        position: 'bottom-right'
       });
       return {
         ...state,
@@ -129,8 +129,11 @@ const reducer = (state = initialState, action) => {
       }
     }
     case VALIDATE_TOKEN_FULFILLED: {
+      const user = action.payload;
+      // console.log(user);
       return {
         ...state,
+        activeUserDetails: user,
         isUserLoggedIn: true,
       }
     }

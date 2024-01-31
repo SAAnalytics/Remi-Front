@@ -19,11 +19,14 @@ import marie from "assets/images/marie.jpg";
 import ivana from "assets/images/ivana-square.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import InstagramIcon from "@mui/icons-material/Instagram";
 
 
 export default [
   {
-    image: kal,
+    image: FacebookIcon,
     name: "Sophie B.",
     description: "Hi! I need more information..",
     action: {
@@ -35,7 +38,7 @@ export default [
     platform: 'google'
   },
   {
-    image: marie,
+    image: TwitterIcon,
     name: "Anne Marie",
     description: "Awesome work, can you..",
     action: {
@@ -47,7 +50,7 @@ export default [
     platform: 'glassdoor'
   },
   {
-    image: ivana,
+    image: InstagramIcon,
     name: "Ivanna",
     description: "About files I can..",
     action: {
@@ -59,7 +62,7 @@ export default [
     platform: 'instagram'
   },
   {
-    image: team4,
+    image: FacebookIcon,
     name: "Peterson",
     description: "Have a great afternoon..",
     action: {
@@ -71,7 +74,7 @@ export default [
     platform: 'glassdoor'
   },
   {
-    image: team3,
+    image: InstagramIcon,
     name: "Nick Daniel",
     description: "Hi! I need more information..",
     action: {

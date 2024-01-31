@@ -44,7 +44,7 @@ export const validateToken = (navigate, componentPath) => {
     dispatch({ type: VALIDATE_TOKEN_PENDING });
     Axios.get('/user/verify-token')
       .then(res => {
-        dispatch({ type: VALIDATE_TOKEN_FULFILLED });
+        dispatch({ type: VALIDATE_TOKEN_FULFILLED, payload: res.data });
         navigate(componentPath);
       })
       .catch(er => dispatch({ type: VALIDATE_TOKEN_REJECTED }))

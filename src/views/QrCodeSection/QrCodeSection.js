@@ -11,10 +11,14 @@ import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import QrSectionBackground from '../../Images/stepper.svg'
 
 
+
 const QrCodeSection = (props) => {
   const {
 
   } = props;
+
+
+
   const [openQRDialog, setOpenQrDialog = { setOpenQrDialog }] = useState(false);
   return (<>
     <DashboardLayout>
