@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Plans.css';
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
 import DashboardNavbar from 'examples/Navbars/DashboardNavbar';
 import PricingCard from "./PricingCard";
 import { Grid } from '@mui/material';
+// import { getPlansData } from 'Redux/action';
 
 
 const plansDummyData = [
   {
-    planName: 'Plan A',
+    planName: 'Monthly',
     price: '$100',
     _id: 'hiuh234huih234nj34nj565nj67n77',
-    frequency: 'Weekly',
+    frequency: 'Monthly',
     hotelCount: 157,
     priceColor: '#e63d39',
     dummyFeatures: [
@@ -23,10 +24,10 @@ const plansDummyData = [
     ]
   },
   {
-    planName: 'Plan B',
+    planName: 'Quaterly',
     price: '$150',
     _id: 'hiuh234huih234nj34nj565nj67n77',
-    frequency: 'Monthly',
+    frequency: 'Quaterly',
     hotelCount: 334,
     priceColor: '#16bbcf',
     dummyFeatures: [
@@ -38,10 +39,10 @@ const plansDummyData = [
     ]
   },
   {
-    planName: 'Plan C',
+    planName: 'Half yearly',
     price: '$200',
     _id: 'hiuh234huih234nj34nj565nj67n77',
-    frequency: 'Yearly',
+    frequency: 'Half yearly',
     hotelCount: 124,
     priceColor: '#fb9006',
     dummyFeatures: [
@@ -53,10 +54,10 @@ const plansDummyData = [
     ]
   },
   {
-    planName: 'Plan D',
+    planName: 'Yearly',
     price: '$180',
     _id: 'hiuh234huih234nj34nj565nj67n77',
-    frequency: 'Monthly',
+    frequency: 'Yearly',
     hotelCount: 903,
     priceColor: '#4ba64f',
     dummyFeatures: [
@@ -70,27 +71,70 @@ const plansDummyData = [
 ];
 
 
+import registerHotel from '../../Images/hotelNotRegisterd.svg';
 
 
 const Plans = (props) => {
+
+  const {
+    allPlansData,
+    getPlansData,
+    getActiveSubscriptions,
+    activePlanDataId,
+    hotelDetailsRedux,
+    getHotelData,
+    activeHotelFlag,
+  } = props;
+
+  const [plansData, setPlansData] = useState([]);
+  const [hotelExistFlag, setHotelExistFlag] = useState(false);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        await getPlansData();
+        await getActiveSubscriptions();
+        await getHotelData();
+      }
+      catch (err) {
+        alert("Something went wrong!!");
+      }
+    };
+    getData();
+  }, []);
+
+  useEffect(() => {
+    setPlansData(allPlansData);
+    setHotelExistFlag(activeHotelFlag);
+  }, [allPlansData, activeHotelFlag]);
+
+
   return (<>
     <DashboardLayout>
       <DashboardNavbar />
       <Grid item xs={12} mt={4}>
-        <div className="planCardsContainer">
-          {plansDummyData.map((data, key) => {
+
+        {hotelDetailsRedux ? <div className="planCardsContainer">
+          {plansData && plansData.length > 0 && plansData.map((data, index) => {
             return (<PricingCard
-              planName={data.planName}
+              priceId={data.priceId}
+              productId={data.productId}
+              planName={data.name}
+              interval={data.interval}
               price={data.price}
               _id={data._id}
-              hotelCount={data.hotelCount}
-              frequency={data.frequency}
-              priceColor={data.priceColor}
-              buttonText="Edit Plan details"
-              features={data.dummyFeatures}
+              metaId={data.metaId}
+              trialDays={data.trialDays}
+              hotelCount={200}
+              priceColor={index === 0 ? '#e63d39' : index === 1 ? '#16bbcf' : index === 2 ? '#fb9006' : '#4ba64f'}
+            // buttonText="Edit Plan details"
+            // frequency={data.frequency}
+            // features={data.dummyFeatures}
             />)
           })}
-        </div>
+        </div> : <div className='noPlansView'>
+          <img src={registerHotel} alt="Hotel Not Registerd!!" />
+          <div>Please register your hotel details before accessing plans</div>
+        </div>}
 
       </Grid>
     </DashboardLayout>

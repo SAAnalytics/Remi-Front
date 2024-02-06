@@ -1,13 +1,15 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Pacifico&display=swap');
+
 .downloaderPart {
   /* position: relative; */
   border: 10px solid black !important;
   border-radius: 10px;
 }
-.headerScanme > img {
+
+.headerScanme>img {
   height: 160px;
 }
+
 .headerScanme {
   display: flex;
   justify-content: center;
@@ -49,7 +51,7 @@
   display: block;
   position: absolute;
   top: -2px;
-  left: -2px;  
+  left: -2px;
   width: 60px;
   height: 60px;
   border-top: 4px solid var(--color);
@@ -62,7 +64,7 @@
   display: block;
   position: absolute;
   bottom: -2px;
-  right: -2px;  
+  right: -2px;
   width: 60px;
   height: 60px;
   border-bottom: 4px solid var(--color);
@@ -113,7 +115,7 @@
   position: absolute;
   left: 45%;
   top: -20px
-  /* border-radius: 50% 50% 0 0; */
+    /* border-radius: 50% 50% 0 0; */
 }
 
 .usernameContainer {
@@ -135,14 +137,14 @@
   /* border: 2px solid #000000; */
   background-color: #000000a2;
   background-color: #2d3436;
-background-image: linear-gradient(315deg, #2d3436 0%, #000000 74%);
+  background-image: linear-gradient(315deg, #2d3436 0%, #000000 74%);
 }
 
 .leftLogoContainer {
   width: 30%;
   height: 100%;
   border-right: 5px solid #ffffff75;
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -191,4 +193,31 @@ background-image: linear-gradient(315deg, #2d3436 0%, #000000 74%);
 
 .hotelImageOnQr {
   /* filter: invert(100); */
+}
+
+@media only screen and (max-width: 700px) {
+  .headerScanme>img {
+    height: 140px;
+  }
+}
+
+@media only screen and (max-width: 630px) {
+  .headerScanme>img {
+    height: 130px;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  .headerScanme>img {
+    height: 120px;
+  }
+  .subHeaderScanMe {
+    font-size: 17px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .headerScanme>img {
+    height: 110px;
+  }
 }

@@ -24,7 +24,7 @@ import Icon from "@mui/material/Icon";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-
+import GroupIcon from '@mui/icons-material/Group';
 function ComplexStatisticsCard({ color, title, count, percentage, icon }) {
   return (
     <Card>
@@ -43,7 +43,8 @@ function ComplexStatisticsCard({ color, title, count, percentage, icon }) {
           mt={-3}
         >
           <Icon fontSize="medium" color="inherit">
-            {icon}
+            { icon}
+            
           </Icon>
         </MDBox>
         <MDBox textAlign="right" lineHeight={1.25}>

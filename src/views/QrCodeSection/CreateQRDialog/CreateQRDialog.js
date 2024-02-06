@@ -33,7 +33,7 @@ const CreateQRDialog = (props) => {
       }
     };
     getHotelDataFromRedux();
-  },[])
+  }, [])
 
   const { business_id, name } = hotelDetailsRedux;
   // console.log(business_id, hotelDetailsRedux)
@@ -111,7 +111,7 @@ const CreateQRDialog = (props) => {
       <DialogContent>
         <DialogContentText className='downloaderPart' sx={{ border: '2px solid red' }}>
           <div className="headerScanme">
-            <img src={headerPng} alt="" />
+            <img src={headerPng} className='scaneMeImage' alt="" />
             <div className="subHeaderScanMe">
               Your reviews are precious to us!!D
             </div>
@@ -125,7 +125,7 @@ const CreateQRDialog = (props) => {
               <QRCode
                 size={200}
                 style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                value={`https://934f-103-129-235-102.ngrok-free.app/feedback?business_id=${business_id}`}
+                value={`https://51a3-103-129-235-102.ngrok-free.app/feedback?business_id=${business_id}`}
                 level='M'
                 fgColor="#ffbb00"
                 bgColor="transparent"
@@ -188,6 +188,9 @@ const CreateQRDialog = (props) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
+        <Button onClick={() => { window.open(`https://51a3-103-129-235-102.ngrok-free.app/feedback?business_id=${business_id}`, "_blank")}}>
+          Preview
+        </Button>
         <Button onClick={() => handlePdfDownload()}>
           Download QR as PDF
         </Button>

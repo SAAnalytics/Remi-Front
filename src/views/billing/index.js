@@ -15,10 +15,12 @@ Coded by www.creative-tim.com
 
 // @mui material components
 import Grid from "@mui/material/Grid";
-
+import {
+  mapDispatchToProps,
+} from './props';
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
-
+import './Billing.css';
 // Material Dashboard 2 React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
@@ -31,59 +33,43 @@ import PaymentMethod from "views/billing/components/PaymentMethod";
 import Invoices from "views/billing/components/Invoices";
 import BillingInformation from "views/billing/components/BillingInformation";
 import Transactions from "views/billing/components/Transactions";
+import { useEffect } from "react";
+import { connect } from "react-redux";
 
-function Billing() {
+import stripeImg from '../../Images/stripe.svg';
+import { Button } from "@mui/material";
+
+const Billing = (props) =>  {
+  const {
+    handlebilling,
+  } = props;
+  // useEffect(() => {
+  //   const handleBillingRedirection = async () => {
+
+  //   };
+  //   handleBillingRedirection();
+  // }, []);
+
+  const handleBillingClick = async () => {
+    try {
+      await handlebilling();
+    }
+    catch (err) {
+      alert("Something went wrong!!")
+    };
+  };
   return (
     <DashboardLayout>
-      <DashboardNavbar absolute isMini />
-      <MDBox mt={8}>
-        <MDBox mb={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} lg={8}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} xl={6}>
-                  <MasterCard number={4562112245947852} holder="jack peterson" expires="11/22" />
-                </Grid>
-                <Grid item xs={12} md={6} xl={3}>
-                  <DefaultInfoCard
-                    icon="account_balance"
-                    title="salary"
-                    description="Belong Interactive"
-                    value="+$2000"
-                  />
-                </Grid>
-                <Grid item xs={12} md={6} xl={3}>
-                  <DefaultInfoCard
-                    icon="paypal"
-                    title="paypal"
-                    description="Freelance Payment"
-                    value="$455.00"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <PaymentMethod />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} lg={4}>
-              <Invoices />
-            </Grid>
-          </Grid>
-        </MDBox>
-        <MDBox mb={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={7}>
-              <BillingInformation />
-            </Grid>
-            <Grid item xs={12} md={5}>
-              <Transactions />
-            </Grid>
-          </Grid>
-        </MDBox>
-      </MDBox>
+      <DashboardNavbar />
+        <div className="billingPageContainer">
+          <img src={stripeImg} alt="" />
+          <div className="stripeText">
+            <Button sx={{ color: "white !important" }} variant="contained" onClick={() => handleBillingClick()}>Billing Information</Button>
+          </div>
+        </div>
       <Footer />
     </DashboardLayout>
   );
 }
 
-export default Billing;
+export default connect(null, mapDispatchToProps)(Billing);

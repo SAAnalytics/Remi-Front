@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // react-router-dom components
 import { Link, useNavigate } from "react-router-dom";
@@ -46,9 +46,22 @@ function SignIn(props) {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const {
-    handleLogin
+    handleLogin,
+    isUserLoggedIn,
+    validateToken,
   } = props;
 
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        await validateToken(navigate, "/dashboard");
+      }
+      catch(er) {
+        alert("Something Went wrong!!")
+      };
+    };
+    checkLoginStatus();
+  }, []);
 
   const handleSubmit = async () => {
     try {

@@ -72,14 +72,14 @@ const routes = [
     route: "/profile",
     component: <ProtectedRoute Component={Profile} componentPath='/profile' />,
   },
-  {
-    type: "collapse",
-    name: "Notifications",
-    key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/notifications",
-    component: <ProtectedRoute Component={Notifications} componentPath='/notifications' />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Notifications",
+  //   key: "notifications",
+  //   icon: <Icon fontSize="small">notifications</Icon>,
+  //   route: "/notifications",
+  //   component: <ProtectedRoute Component={Notifications} componentPath='/notifications' />,
+  // },
   {
     type: "collapse",
     name: "Review's",

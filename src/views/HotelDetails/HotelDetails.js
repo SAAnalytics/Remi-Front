@@ -2,60 +2,20 @@ import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
 import React, { useEffect, useState } from 'react';
 import './HotelDetails.css';
 import RegisterHotelForm from './RegisterHotelForm';
-// import BuisnessCards from './BuisnessCards';
 import DashboardNavbar from 'examples/Navbars/DashboardNavbar';
-import { Box, Button, Card, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, IconButton, Typography } from '@mui/material';
-// import { styled } from '@mui/material/styles';
-// import Table from '@mui/material/Table';
-// import TableBody from '@mui/material/TableBody';
-// import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-// import TableContainer from '@mui/material/TableContainer';
-// import TableHead from '@mui/material/TableHead';
-// import TableRow from '@mui/material/TableRow';
-// import Paper from '@mui/material/Paper';
+import { Button, Card, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, IconButton, Tooltip, Typography } from '@mui/material';
 import MDBox from 'components/MDBox';
 import MDTypography from 'components/MDTypography';
 
-import dummyLogo from '../../Images/maps.png'
 
-const cardsData = [
-  {
-    buisnessName: "ABC Corporation",
-    email: "abc@example.com",
-    location: "New York, NY",
-    description: "We provide cutting-edge technology solutions.",
-    buisnessType: "Technology"
-  },
-  {
-    buisnessName: "XYZ Services",
-    email: "xyz@example.com",
-    location: "Los Angeles, CA",
-    description: "Your one-stop shop for all your service needs.",
-    buisnessType: "Services"
-  },
-  {
-    buisnessName: "QuickMart Grocery",
-    email: "quickmart@example.com",
-    location: "Chicago, IL",
-    description: "A neighborhood grocery store with a wide range of products.",
-    buisnessType: "Retail"
-  },
-  {
-    buisnessName: "Green Energy Solutions",
-    email: "greenenergy@example.com",
-    location: "San Francisco, CA",
-    description: "We specialize in renewable energy solutions.",
-    buisnessType: "Energy"
-  }
-];
 import { useTheme, useMediaQuery } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
-// import RemoveRedEyeIcon from '';
-// import ViewHotelDialog from './ViewHotelDialog';
 import EditBuisnessDialog from './EditBuisnessDialog';
 import addIcon from '../../Images/addHotelDetails.svg'
-
+import EditIcon from '@mui/icons-material/Edit';
+import hotelImg from '../../Images/hotelImg.png';
+import hotel2Img from '../../Images/hotel2Img.png';
+import hotel3Img from '../../Images/hotel3Img.png';
 
 const HotelDetails = (props) => {
 
@@ -104,6 +64,8 @@ const HotelDetails = (props) => {
 
   const { location, name, description, room, slogan, customAIDescription } = hotelDetailsRedux;
 
+  const [openEditDialog, setOpenEditDialog] = useState(false);
+
   return (<>
     <DashboardLayout>
       <DashboardNavbar />
@@ -134,9 +96,19 @@ const HotelDetails = (props) => {
             <MDTypography variant="h6" color="white">
               Your Hotel Details
             </MDTypography>
-            {!change && <IconButton onClick={() => handleDeleteHotel()}>
-              <DeleteIcon sx={{ color: 'red' }} />
-            </IconButton>}
+            <div>
+              {!change && <IconButton onClick={() => setOpenEditBuisness(true)}>
+                <Tooltip title='Delete your hotel'>
+                  <EditIcon sx={{ color: 'white !important' }} />
+                </Tooltip>
+              </IconButton>}
+
+              {!change && <IconButton onClick={() => setOpenDeleteModal(true)}>
+                <Tooltip title='Edit hotel details'>
+                  <DeleteIcon sx={{ color: 'white !important' }} />
+                </Tooltip>
+              </IconButton>}
+            </div>
           </MDBox>
 
           {change ? <div className="enterHotelDetailsMainContainer">
@@ -150,7 +122,7 @@ const HotelDetails = (props) => {
             <div className="hoteldetailsMasterContainer">
               <div className="hotelNameContainer">
                 <div className="logoHotelContainer">
-                  <img src={dummyLogo} alt="" />
+                  <img src={hotelImg} alt="" />
                 </div>
                 <div className="hotelNameText">
                   {name}
@@ -213,7 +185,7 @@ const HotelDetails = (props) => {
                     {customAIDescription}
                   </div>
                 </div>
-                
+
               </div>
             </div>}
         </Card>
@@ -224,7 +196,7 @@ const HotelDetails = (props) => {
           Warning!!!
         </DialogTitle>
         <DialogContent>
-          Are you sure you want to delete hotel details?
+          Are you sure you want to delete hotel details? Your reviews will be removed if done so!!!
         </DialogContent>
         <DialogActions>
           <Button variant='contained' sx={{ color: 'white !important', backgroundColor: 'red' }} onClick={() => handleDeleteHotelFromRedux()}>

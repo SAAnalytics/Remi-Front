@@ -45,6 +45,8 @@ import Projects from "views/dashboard/components/Projects";
 import { Icon } from "@mui/material";
 import MDProgress from "components/MDProgress";
 import { Google } from "@mui/icons-material";
+import noDataImg from '../../Images/noReviewsList.svg';
+
 
 const ReviewList = (props) => {
   const { columns, rows } = authorsTableData();
@@ -56,7 +58,30 @@ const ReviewList = (props) => {
   const {
     getReviewsData,
     allReviewsData,
+    getHotelData,
+    hotelDetailsRedux,
   } = props;
+
+  const [activePlat, setActivePlat] = useState([]);
+
+  useEffect(() => {
+    const getHotelDetails = async () => {
+      try {
+        await getHotelData();
+      }
+      catch (err) {
+        alert('Something went wrong!!')
+      };
+    };
+    getHotelDetails();
+  }, []);
+
+
+  useEffect(() => {
+    const { activePlatforms } = hotelDetailsRedux;
+    setActivePlat(activePlatforms);
+  }, [hotelDetailsRedux]);
+
 
   const Author = ({ image, name, description }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
@@ -92,7 +117,7 @@ const ReviewList = (props) => {
         year: '2-digit'
       });
 
-      const timeDate = new Date('2024-01-31T20:45:07.074Z');
+      const timeDate = new Date(creation_date);
       const formattedTime = timeDate.toLocaleTimeString('en-GB', {
         hour: '2-digit',
         minute: '2-digit',
@@ -183,7 +208,7 @@ const ReviewList = (props) => {
       ),
       status: (
         <MDBox ml={-1}>
-          <MDBadge badgeContent='active' color="success" variant="gradient" size="sm" />
+          <MDBadge badgeContent={activePlat && activePlat.length > 0 && activePlat.includes("google") ? "ACTIVE" : "OFFLINE"} color={activePlat && activePlat.length > 0 && activePlat.includes("google") ? "success" : "dark"} variant="gradient" size="sm" />
         </MDBox>
       ),
       completion: <Progress color={gPercent > 80 ? "success" : gPercent > 40 ? "info" : "error"} value={gPercent.toFixed(2)} />,
@@ -202,7 +227,7 @@ const ReviewList = (props) => {
       ),
       status: (
         <MDBox ml={-1}>
-          <MDBadge badgeContent='OFFLINE' color="dark" variant="gradient" size="sm" />
+          <MDBadge badgeContent={activePlat && activePlat.length > 0 && activePlat.includes("instagram") ? "ACTIVE" : "OFFLINE"} color={activePlat && activePlat.length > 0 && activePlat.includes("instagram") ? "success" : "dark"} variant="gradient" size="sm" />
         </MDBox>
       ),
       completion: <Progress color={iPercent > 80 ? "success" : iPercent > 40 ? "info" : "error"} value={iPercent.toFixed(2)} />,
@@ -221,7 +246,7 @@ const ReviewList = (props) => {
       ),
       status: (
         <MDBox ml={-1}>
-          <MDBadge badgeContent='active' color="success" variant="gradient" size="sm" />
+          <MDBadge badgeContent={activePlat && activePlat.length > 0 && activePlat.includes("twitter") ? "ACTIVE" : "OFFLINE"} color={activePlat && activePlat.length > 0 && activePlat.includes("twitter") ? "success" : "dark"} variant="gradient" size="sm" />
         </MDBox>
       ),
       completion: <Progress color={tPercent > 80 ? "success" : tPercent > 40 ? "info" : "error"} value={tPercent.toFixed(2)} />,
@@ -240,7 +265,7 @@ const ReviewList = (props) => {
       ),
       status: (
         <MDBox ml={-1}>
-          <MDBadge badgeContent='active' color="success" variant="gradient" size="sm" />
+          <MDBadge badgeContent={activePlat && activePlat.length > 0 && activePlat.includes("glassdoor") ? "ACTIVE" : "OFFLINE"} color={activePlat && activePlat.length > 0 && activePlat.includes("glassdoor") ? "success" : "dark"} variant="gradient" size="sm" />
         </MDBox>
       ),
       completion: <Progress color={glPercent > 80 ? "success" : glPercent > 40 ? "info" : "error"} value={glPercent.toFixed(2)} />,
@@ -259,7 +284,7 @@ const ReviewList = (props) => {
       ),
       status: (
         <MDBox ml={-1}>
-          <MDBadge badgeContent='OFFLINE' color="dark" variant="gradient" size="sm" />
+          <MDBadge badgeContent={activePlat && activePlat.length > 0 && activePlat.includes("facebook") ? "ACTIVE" : "OFFLINE"} color={activePlat && activePlat.length > 0 && activePlat.includes("facebook") ? "success" : "dark"} variant="gradient" size="sm" />
         </MDBox>
       ),
       completion: <Progress color={fPercent > 80 ? "success" : fPercent > 40 ? "info" : "error"} value={fPercent.toFixed(2)} />,
@@ -313,7 +338,7 @@ const ReviewList = (props) => {
                   Reviews
                 </MDTypography>
               </MDBox>
-              <MDBox pt={3}>
+              {allReviewsData && allReviewsData.length > 0 ? <MDBox className="reviewsTableContainer" pt={3}>
                 {rowsData && rowsData.length > 0 && <DataTable
                   table={{ columns, rows: rowsData }}
                   // allReviewsData={allReviewsData}
@@ -322,7 +347,13 @@ const ReviewList = (props) => {
                   showTotalEntries={false}
                   noEndBorder
                 />}
-              </MDBox>
+              </MDBox> :
+                <MDBox pt={3}>
+                  <div className="noReviewView">
+                    <img src={noDataImg} className="noReviewImg" alt="" />
+                    <div>No reviews found yet!!</div>
+                  </div>
+                </MDBox>}
             </Card>
           </Grid>
           <Grid item xs={12}>

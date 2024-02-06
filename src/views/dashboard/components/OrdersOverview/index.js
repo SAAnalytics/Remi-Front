@@ -45,7 +45,7 @@ function OrdersOverview(props) {
     <Card sx={{ height: "100%" }}>
       <MDBox pt={3} px={3}>
         <MDTypography variant="h6" fontWeight="medium">
-          Orders overview{dummyState}
+          Orders overview
           <Button onClick={() => handleDtate()}> CLick to change State</Button>
         </MDTypography>
         <MDBox mt={0} mb={2}>

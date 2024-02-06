@@ -1,0 +1,12 @@
+.billingPageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  /* height: 90vh; */
+  gap: 20px;
+}
+
+.billingPageContainer > img {
+  height: 60vh;
+}

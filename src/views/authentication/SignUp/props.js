@@ -7,5 +7,5 @@ export const mapDispatchToProps = (dispatch) => ({
 });
 
 export const mapStateToProps = (state) => ({
-  
+  emailVerifyFlag: state.emailVerifyFlag,
 });

@@ -10,3 +10,56 @@
   text-transform: capitalize !important;
   /* border: 2px solid blue; */
 }
+
+.noReviewView {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 60vh;
+}
+
+.noReviewView > img {
+  height: 80%;
+}
+
+.reviewsTableContainer {
+  /* height: 50vh; */
+  overflow-y: auto;
+}
+
+@media only screen and (max-width: 980px) {
+  .noReviewView > img {
+    height: 70%;
+  }
+  .noReviewView {
+    height: 50vh;
+  } 
+}
+
+@media only screen and (max-width: 690px) {
+  .noReviewView > img {
+    height: 70%;
+  }
+  .noReviewView {
+    height: 40vh;
+  } 
+}
+
+@media only screen and (max-width: 600px) {
+  .noReviewView > img {
+    height: 70%;
+  }
+  .noReviewView {
+    height: 30vh;
+  } 
+}
+
+
+@media only screen and (max-width: 450px) {
+  .noReviewView > img {
+    height: 70%;
+  }
+  .noReviewView {
+    height: 25vh;
+  } 
+}

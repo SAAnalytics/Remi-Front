@@ -19,6 +19,7 @@
     "@mui/icons-material": "5.11.16",
     "@mui/material": "5.12.3",
     "@mui/styles": "^5.15.6",
+    "@stripe/stripe-js": "^2.4.0",
     "axios": "^1.6.5",
     "chart.js": "4.3.0",
     "chroma-js": "2.4.2",
@@ -45,7 +46,7 @@
     "yup": "1.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set PORT=3001 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

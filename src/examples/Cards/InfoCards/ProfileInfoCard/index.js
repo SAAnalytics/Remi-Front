@@ -32,8 +32,9 @@ import MDTypography from "components/MDTypography";
 // Material Dashboard 2 React base styles
 import colors from "assets/theme/base/colors";
 import typography from "assets/theme/base/typography";
-
-function ProfileInfoCard({ title, description, info, social, action, shadow }) {
+// import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+function ProfileInfoCard({ title, description, info, social, hotelDetailsRedux, action, shadow }) {
   const labels = [];
   const values = [];
   const { socialMediaColors } = colors;
@@ -55,16 +56,30 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
   Object.values(info).forEach((el) => values.push(el));
 
   // Render the card info items
-  const renderItems = labels.map((label, key) => (
-    <MDBox key={label} display="flex" py={1} pr={2}>
-      <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
-        {label}: &nbsp;
-      </MDTypography>
-      <MDTypography variant="button" fontWeight="regular" color="text">
-        &nbsp;{values[key]}
-      </MDTypography>
-    </MDBox>
-  ));
+  const renderItems = labels.map((label, key) => {
+    if (label !== "location") {
+        return <MDBox key={label} display="flex" py={1} pr={2}>
+          <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
+            {label === "mobile" ? 'username' : label}: &nbsp;
+          </MDTypography>
+          <MDTypography variant="button" fontWeight="regular" color="text">
+            &nbsp;{values[key]}
+          </MDTypography>
+        </MDBox>
+    }
+    else {
+      if(label === "location" && Object.values(hotelDetailsRedux).length > 0) {
+        return <MDBox key={label} display="flex" py={1} pr={2}>
+          <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
+            {label === "mobile" ? 'username' : label}: &nbsp;
+          </MDTypography>
+          <MDTypography variant="button" fontWeight="regular" color="text">
+            &nbsp;{values[key]}
+          </MDTypography>
+        </MDBox>
+      };
+    };
+  });
 
   // Render the card social media icons
   const renderSocial = social.map(({ link, icon, color }) => (
@@ -90,17 +105,17 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
         <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
           {title}
         </MDTypography>
-        <MDTypography component={Link} to={action.route} variant="body2" color="secondary">
+        {/* <MDTypography component={Link} to={action.route} variant="body2" color="secondary">
           <Tooltip title={action.tooltip} placement="top">
             <Icon>edit</Icon>
           </Tooltip>
-        </MDTypography>
+        </MDTypography> */}
       </MDBox>
       <MDBox p={2}>
         <MDBox mb={2} lineHeight={1}>
-          <MDTypography variant="button" color="text" fontWeight="light">
+          {hotelDetailsRedux && (Object.keys(hotelDetailsRedux).length > 0) ? <MDTypography variant="button" color="text" fontWeight="light">
             {description}
-          </MDTypography>
+          </MDTypography> : <MDTypography variant="button" color="text" fontWeight="bold">Please <Link style={{ color: 'blue' }} to="/hotelDetails">register</Link> your hotel</MDTypography>}
         </MDBox>
         <MDBox opacity={0.3}>
           <Divider />
@@ -115,7 +130,7 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
           </MDBox>
         </MDBox>
       </MDBox>
-    </Card>
+    </Card >
   );
 }
 
@@ -137,4 +152,8 @@ ProfileInfoCard.propTypes = {
   shadow: PropTypes.bool,
 };
 
-export default ProfileInfoCard;
+const mapStateToProps = (state) => ({
+  hotelDetailsRedux: state.hotelDetailsRedux,
+});
+
+export default connect(mapStateToProps, null)(ProfileInfoCard);

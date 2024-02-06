@@ -37,10 +37,30 @@ import breakpoints from "assets/theme/base/breakpoints";
 // Images
 import burceMars from "assets/images/bruce-mars.jpg";
 import backgroundImage from "assets/images/bg-profile.jpeg";
+import { getHotelData } from "../../../../Redux/action";
+import { connect } from "react-redux";
+import hotelImg from '../../../../Images/hotelImg.png';
 
-function Header({ children }) {
+
+function Header({ 
+  children,
+  hotelDetailsRedux,
+  getHotelData, }) {
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
   const [tabValue, setTabValue] = useState(0);
+
+  const { name, location } = hotelDetailsRedux;
+  useEffect(() => {
+    const getHotelDetails = async () => {
+      try {
+        await getHotelData();
+      }
+      catch (er) {
+        alert('Something went wrong!!')
+      }
+    };
+    getHotelDetails();
+  }, [])
 
   useEffect(() => {
     // A function that sets the orientation state of the tabs.
@@ -94,15 +114,15 @@ function Header({ children }) {
       >
         <Grid container spacing={3} alignItems="center">
           <Grid item>
-            <MDAvatar src={burceMars} alt="profile-image" size="xl" shadow="sm" />
+            <img src={hotelImg} height={'55px'} alt="profile-image" />
           </Grid>
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>
               <MDTypography variant="h5" fontWeight="medium">
-                :DiamondPalace:
+                {name}
               </MDTypography>
               <MDTypography variant="button" color="text" fontWeight="regular">
-                :Location of Hotel:
+                {location}
               </MDTypography>
             </MDBox>
           </Grid>
@@ -153,4 +173,13 @@ Header.propTypes = {
   children: PropTypes.node,
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  hotelDetailsRedux: state.hotelDetailsRedux,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getHotelData: () => dispatch(getHotelData())
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

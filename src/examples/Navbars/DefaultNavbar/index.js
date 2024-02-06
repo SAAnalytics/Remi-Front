@@ -170,7 +170,7 @@ function DefaultNavbar({ transparent, light, action, landingFormFlag }) {
           <Icon fontSize="default">{mobileNavbar ? "close" : "menu"}</Icon>
         </MDBox>
       </MDBox>
-      {mobileView && <DefaultNavbarMobile open={mobileNavbar} close={closeMobileNavbar} />}
+      {mobileView && <DefaultNavbarMobile landingFormFlag={landingFormFlag} open={mobileNavbar} close={closeMobileNavbar} />}
     </Container>
   );
 }

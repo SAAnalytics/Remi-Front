@@ -1,2 +1,5 @@
 import Plans from "./Plans";
-export default Plans;
+import { connect } from "react-redux";
+import { mapDispatchToProps, mapStateToProps } from "./props";
+
+export default connect(mapStateToProps, mapDispatchToProps)(Plans);

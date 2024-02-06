@@ -57,6 +57,7 @@ import brandDark from "assets/images/logo-ct-dark.png";
 import { ToastContainer } from "react-toastify";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import { connect } from "react-redux";
+import FullPageLoader from "components/FullPageLoader";
 
 const App = (props) => {
   const {
@@ -176,6 +177,7 @@ const App = (props) => {
   );
 
   return (<div>
+    <div className='routerContainer'>
     {direction === "rtl" ? (
       <CacheProvider value={rtlCache}>
         <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
@@ -197,7 +199,7 @@ const App = (props) => {
           {layout === "vr" && <Configurator />}
           <Routes>
             {getRoutes(routes)}
-            <Route path="*" element={<Navigate to="/dashboard" />} />
+            <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
           </Routes>
         </ThemeProvider>
         <ToastContainer />
@@ -222,12 +224,14 @@ const App = (props) => {
         {layout === "vr" && <Configurator />}
         <Routes>
           {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
+          <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
         </Routes>
       </ThemeProvider>
     )}
 
     <ToastContainer />
+    </div>
+    <FullPageLoader />
   </div>);
 };
 

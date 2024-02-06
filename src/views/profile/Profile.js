@@ -51,28 +51,36 @@ import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
 import { useEffect } from "react";
+import hotelImg from '../../Images/hotelImg.png'
 
 
 const Profile = (props) => {
   const {
     getReviewsData,
     allReviewsData,
+    hotelDetailsRedux,
+    activeUserDetails,
   } = props;
+
+  const { name, username, email } = activeUserDetails
+  // const { } = props;
+  const { location, description } = hotelDetailsRedux;
+  const { activeAI, activePlatforms, facebook_id, instagram_id, x_id, glassdoor_id, place_id } = hotelDetailsRedux;
+
   useEffect(() => {
     const getReviewsDataFromRedux = async () => {
-      try{
+      try {
         await getReviewsData();
       }
-      catch(err){
+      catch (err) {
         alert('Something went wrong!!')
       }
     }
+
     getReviewsDataFromRedux();
-  },[]);
-  useEffect(() => {
-    
-    console.log(allReviewsData);
-  },[allReviewsData])
+  }, []);
+
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -86,27 +94,27 @@ const Profile = (props) => {
             <Grid item xs={12} md={6} xl={4} sx={{ display: "flex" }}>
               <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
               <ProfileInfoCard
-                title="Hotel information"
-                description="Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
+                title="Hotel Description"
+                description={description}
                 info={{
-                  fullName: "Alec M. Thompson",
-                  mobile: "(44) 123 1234 123",
-                  email: "alecthompson@mail.com",
-                  location: "USA",
+                  fullName: name,
+                  mobile: username,
+                  email: email,
+                  location: location,
                 }}
                 social={[
                   {
-                    link: "https://www.facebook.com/CreativeTim/",
+                    link: facebook_id,
                     icon: <FacebookIcon />,
                     color: "facebook",
                   },
                   {
-                    link: "https://twitter.com/creativetim",
+                    link: x_id,
                     icon: <TwitterIcon />,
                     color: "twitter",
                   },
                   {
-                    link: "https://www.instagram.com/creativetimofficial/",
+                    link: instagram_id,
                     icon: <InstagramIcon />,
                     color: "instagram",
                   },

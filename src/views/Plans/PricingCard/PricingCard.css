@@ -3,12 +3,12 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   position: relative;
-  text-align: center;
+  text-align: right;
   padding: 10px 20px 20px 20px;
   background: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
-  width: 80%;
+  width: 100%;
 }
 
 .pricing-card:hover {
@@ -26,6 +26,7 @@
   padding: 10px 0;
 }
 .price > span {
+  text-align: center;
   width: 100%;
 }
 
@@ -106,4 +107,21 @@
 
 .plansFeature {
   font-size: 15px;
+}
+
+@media only screen and (max-width: 800px) {
+  .price {
+    font-size: 1.7rem;
+  }
+
+  .carPlanName {
+    font-size: 1.5rem;
+  }
+
+  .hotelCountForplan {
+    font-size: 13px;
+  }
+  .pricing-card {
+    width: 100%;
+  }
 }
