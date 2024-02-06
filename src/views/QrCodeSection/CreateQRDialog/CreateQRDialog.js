@@ -125,7 +125,7 @@ const CreateQRDialog = (props) => {
               <QRCode
                 size={200}
                 style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                value={`https://51a3-103-129-235-102.ngrok-free.app/feedback?business_id=${business_id}`}
+                value={`https://rime-wfzm.onrender.com/feedback?business_id=${business_id}`}
                 level='M'
                 fgColor="#ffbb00"
                 bgColor="transparent"
